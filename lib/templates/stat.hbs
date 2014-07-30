@@ -1,0 +1,16 @@
+<li id="{{id}}">
+  <div class="perfBar-stat">
+    <div class="perfBar-valueUnit {{#if isGood}} is-good {{/if}} {{#if isBad}} is-bad {{/if}}">
+      {{#if hint}}
+      <abbr title="{{hint}}">
+        <span class="perfBar-value">{{value}}</span>
+        <span class="perfBar-unit">{{unit}}</span>
+      </abbr>
+      {{else}}
+        <span class="perfBar-value">{{value}}</span>
+        <span class="perfBar-unit">{{unit}}</span>
+      {{/if}}
+    </div>
+    <h3 class="perfBar-label">{{label}}</h3>
+  </div>
+</li>
