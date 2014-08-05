@@ -424,7 +424,9 @@ th {
   padding: 0;
 }
 
-
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
 
 body {
   background: #fff;
@@ -432,20 +434,36 @@ body {
   -webkit-font-smoothing: antialiased;
   font-weight: 200;
   color: #555;
-  padding: 80px;
+  
 }
 
 a {
   color: #08c;
 }
 
+
+#st-header {
+  padding: 80px;
+  
+  color: #fff;
+  text-align: center;
+  background: #2095D1;
+  background-image: -webkit-linear-gradient(45deg, #2095D1, #FF8AD6);
+  background-image: -moz-linear-gradient(45deg, #2095D1, #FF8AD6);
+  background-image: -ms-linear-gradient(45deg, #2095D1, #FF8AD6);
+  background-image: -o-linear-gradient(45deg, #2095D1, #FF8AD6);
+  background: linear-gradient(45deg, #2095D1, #FF8AD6);
+}
+
 .st-header-title {
-  font-weight: 200;
+  margin-top: 0;
+
+  font-weight: 600;
   font-size: 2.3em;
-  color: #333;
+  color: #fff;
 }
 .st-header-body {
-  color: #777;
+  color: #fff;
   font-weight: 300;
   line-height: 1.6em;
 }
@@ -459,6 +477,10 @@ a {
   border-top: 1px dotted #ededed;
   margin-top: 45px;
   padding-top: 45px;
+}
+
+.st-container .st-part:first-child {
+  border-top: none;
 }
 
 .st-part__title {
@@ -490,6 +512,7 @@ a {
 .st-footer-stuff li {
   display: inline-block;
   margin-left: 20px;
+  min-height: 80px;
 }
 .st-tweet a {
   /*background: #f9f9f9;*/
@@ -499,50 +522,6 @@ a {
   font-weight: 500;
   border-radius: 5px;
   padding: 10px 20px;
-}
-
-
-.st-loading {
-  position: fixed;
-  z-index: 999;
-  top: 15%;
-  text-shadow: #fff 5px 5px 5px;
-}
-
-.an-animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-.an-animated.an-infinite {
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-}
-@-webkit-keyframes flash {
-  0%, 50%, 100% {
-    opacity: 1;
-  }
-
-  25%, 75% {
-    opacity: 0;
-  }
-}
-
-@keyframes flash {
-  0%, 50%, 100% {
-    opacity: 1;
-  }
-
-  25%, 75% {
-    opacity: 0;
-  }
-}
-
-.an-flash {
-  -webkit-animation-name: flash;
-  animation-name: flash;
 }
 
 
@@ -558,7 +537,7 @@ a {
   background: transparent;
   border: 2px solid #ededed;
   text-decoration: none;
-  color: #777;
+  color: #fff;
   font-weight: 200;
 }
 .st-getStarted, .st-github-star {
@@ -572,12 +551,28 @@ a {
 }
 
 .st-getStarted {
-  color: #08c;
-  font-weight: 400;
+  color: #fff;
+  font-weight: 600;
   border: 2px solid #ededed;
 }
 
 .scrollable {
   overflow: scroll;
   height: 600px;
+}
+
+
+.perfBudget {
+  width: 100%;
+  padding: 10px;
+  
+  color: #fff;
+  font-weight: 400;
+  background: #2095D1;
+  background-image: -webkit-linear-gradient(45deg, #2095D1, #8AFFE4);
+  background-image: -moz-linear-gradient(45deg, #2095D1, #8AFFE4);
+  background-image: -ms-linear-gradient(45deg, #2095D1, #8AFFE4);
+  background-image: -o-linear-gradient(45deg, #2095D1, #8AFFE4);
+  background: linear-gradient(45deg, #2095D1, #8AFFE4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }

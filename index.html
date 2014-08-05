@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Steady.js</title>
+  <title>PerfBar</title>
   <meta charset='utf-8'>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+  <script type="text/javascript">
+  (function(d) {
+    var config = {
+      kitId: 'jqw5txk',
+      scriptTimeout: 3000
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
 </head>
 <body>
-  <div class="st-container">
-    <div id="st-header">
+<!--   <div class="perfBudget">
+    <div class="st-container">
+      PerfBudget
+    </div>
+  </div> -->
+  <div id="st-header">
+      <div class="st-container">
         <h1 class="st-header-title">PerfBar</h1>
         <p class="st-header-body">A jank-free module to do logic on the <code>onscroll</code> event without performance regressions in @media-query like conditions.</p>
 
         <a href="#getStarted" class="st-getStarted">Get Started</a>
         <a href="#install" class="st-github-star">Install</a>
         <a href="https://github.com/lafikl/Steady.js" class="st-github-star">Star on Github</a>
-    </div>
+      </div>
+  </div>
+
+  <div class="st-container">
+    
 
     <div class="st-part" id="getStarted">
         <h2 class="st-part__title">How does it work?</h2>
@@ -144,5 +162,10 @@
       </ul>
     </div>
   </div>
+
+  <script type="text/javascript" src="javascripts/perfBar.js"></script>
+  <script type="text/javascript">
+    perfBar.init()
+  </script>
 </body>
 </html>
