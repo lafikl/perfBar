@@ -1,52 +1,148 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Steady.js</title>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+</head>
+<body>
+  <div class="st-container">
+    <div id="st-header">
+        <h1 class="st-header-title">PerfBar</h1>
+        <p class="st-header-body">A jank-free module to do logic on the <code>onscroll</code> event without performance regressions in @media-query like conditions.</p>
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Perfbar : WIP">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Perfbar</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/lafikl/perfBar">View on GitHub</a>
-
-          <h1 id="project_title">Perfbar</h1>
-          <h2 id="project_tagline">WIP</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/lafikl/perfBar/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/lafikl/perfBar/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+        <a href="#getStarted" class="st-getStarted">Get Started</a>
+        <a href="#install" class="st-github-star">Install</a>
+        <a href="https://github.com/lafikl/Steady.js" class="st-github-star">Star on Github</a>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a name="perfbar" class="anchor" href="#perfbar"><span class="octicon octicon-link"></span></a>perfBar</h1>
+    <div class="st-part" id="getStarted">
+        <h2 class="st-part__title">How does it work?</h2>
+        <p>Steady's main goal is to make the user scrolling <a href="http://jankfree.org">jank-free</a>. Below is an explaination on how Steady is working under the hood:</p>
+        <ol>
+          <li>First, Steady attaches a handler to the <code>onscroll</code> event, that excutes the trackers (collecting numbers only).</li>
+          <li>Then it calls another function that checks the conditions with values inside a <code>requestAnimationFrame</code> to avoid making the <code>onscroll</code> handler fat and slow, which will jank our scrolling.</li>
+          <li>After that check, the function tries to see if the conditions are met. If they're met, it calls the handler with the values and the done function, otherwise it does nothing.</li>
+          <li>When the handler is called, Steady stops collecting values until the <code>done</code> callback is called by the handler. This will help you when you do async stuff.</li>
 
-<p>WIP</p>
-      </section>
+        </ol>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Perfbar maintained by <a href="https://github.com/lafikl">lafikl</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
+    <div class="st-part">
+        <h2 class="st-part__title">Features</h2>
+        <ul>
+          <li>Tiny <code>onscroll</code> handler that collect values only, offloading the computations to <code>requestAnimationFrame</code>.
+          </li>
+          <li>Throttling <code>onscroll</code> handler to avoid calling it more than what we need.</li>
+          <li>Simple and reusable trackers that works like <code>@media-query</code>.
+          </li>
+          <li>Built-in trackers: 
+            <ul>
+              <li><code>bottom</code>: you can use it to check did the user reach the bottom of the page/element yet? ( e.g. before reaching the end of the page by 200px start loading new content ). And it works of the scrollable elements and window!</li>
+              <li><code>top</code>: how much did he scroll the window/element down?</li>
+              <li><code>width</code>: viewport width, since your logic might change based on the viewport size</li>
+              <li><code>scrollLeft</code>: this is for scrollable elements only, that collects how much did you scroll from the left of the element.</li>
+              <li>...and you can build your own trackers very easily!</li>
+            </ul>
+          </li>
+          <li>Extendable trackers, you can simply roll your own trackers.</li>
+          <li>Stopping and resuming the onScroll handler</li>
+        </ul>
     </div>
 
-    
+    <div class="st-part">
+        <h2 class="st-part__title">Instance methods</h2>
+        <script src="https://gist.github.com/lafikl/79f1ba78ca22cc0f081e.js"></script>
 
-  </body>
+        <ul>
+          <li><code>s.addCondition(condition)</code>: it gives the ability to add a condition on the fly. And <code>condition</code> is a string that works as the identifier of the condition (e.g <code>top</code> )</li>
+          <li><code>s.removeCondition(condition)</code>: same as the above but it removes the condition.</li>
+          <li><code>s.addTracker(conditionName, fn)</code>: a method to create custom trackers. look at the example <a href="#customTracker">below</a></li>
+          <li><code>s.stop</code>: it removes the onScroll listener, this method is good for Single-Page applications whin switching between routes/views.</li>
+          <li><code>s.resume</code>: reattaches the handler to the onScroll event. <a href="#stopResume">Example</a></li>
+        </ul>
+
+    </div>
+
+    <div class="st-part">
+
+        <h3>Steady (options)</h3>
+        <h4>Options:</h4>
+        <ul>
+          <li><code>conditions</code> (<b>Object</b>): this is a key/value object that defines rules for the trackers. All trackers have <code>min</code> and <code>max</code> suffix out of the box. It's like <code>@media-query</code> but for <code>onscroll</code> event</li>
+          <li><code>handler</code> (<b>Function</b>): a handler that gets called when the conditions are met, with two parameters:
+            <ol>
+              <li><code>values</code> (<b>Object</b>): contains a key/value object, where the key is the name of the tracker and the value is it's value.
+              </li>
+              <li><code>done</code> (<b>Function</b>): a function that you call when you're done processing, this way you can make sure that your handler can't be called again while you process an async thingy <i>( e.g. waiting for an AJAX request to finish )</i>.</li>
+            </ol>
+          </li>
+          <li><code>[scrollElement]</code>(<b>HTML Element</b>): it gives you the ability to run Steady on a scrollable element instead of window. This property is optional that defaults to <code>window</code>. <a href="examples/scrollable.html">Demo</a></li>
+          <li><code>[throttle]</code> (<b>Number</b>): the timeout delay in milliseconds, it's used to avoid calling the Steady onscroll handler more than we need to. This property is optional that defaults to 100 ms</li>
+        </ul>
+        
+    </div>
+
+    <div class="st-part">
+        <h2 class="st-part__title">Basic usage</h2>
+        <script src="https://gist.github.com/lafikl/8dfd7b25524d5afb8f7e.js"></script>
+        
+    </div>
+
+    <div class="st-part" id="customTracker">
+        <h2 class="st-part__title">Custom trackers</h2>
+        <script src="https://gist.github.com/lafikl/470e6f24513c82b60f44.js"></script>
+    </div>
+
+    <div class="st-part">
+        <h2 class="st-part__title">Scrollable element</h2>
+        <script src="https://gist.github.com/lafikl/cf088bbf02798c66b0f5.js"></script>
+    </div>
+
+    <div class="st-part" id="stopResume">
+        <h2 class="st-part__title">Stop/Resume</h2>
+        <script src="https://gist.github.com/lafikl/79f1ba78ca22cc0f081e.js"></script>
+    </div>
+
+
+    <div class="st-part">
+      <h2 class="st-part__title">Demo</h2>
+      <ul>
+        <li><a href="examples/infinite.html">Infinite scroll</a></li>
+        <li><a href="examples/scrollable.html">Scrollable element</a></li>
+        <li>Be creative!</li>
+      </ul>
+    </div>
+
+    <div class="st-part" id="install">
+      <h2 class="st-part__title">Install</h2>
+      <h4>NPM</h4>
+      <code class="st-bash"><b>$</b> npm install steady</code>
+
+      <h4>Bower</h4>
+      <code class="st-bash"><b>$</b> bower install Steady.js</code>
+
+      <h4>Download</h4>
+      <p>You can download the latest release from <a href="https://github.com/lafikl/steady.js/releases/latest">the github repo</a></p>
+    </div>
+
+    <div class="st-part" id="install">
+      <h2 class="st-part__title">Changelog</h2>
+      <h4>1.0.0</h4>
+      <ul>
+        <li>Deprecating <code>scrollY</code>, <code>scrollX</code>, and <code>scrollTop</code></li>
+        <li>New tracker <code>top</code></li>
+      </ul>
+    </div>
+
+    <div class="st-part">
+      <small>By Khalid Lafi / <a href="#">@LafiKL</a></small>
+      <ul class="st-footer-stuff">
+        <li class="st-tweet"><a href="https://twitter.com/intent/tweet?text=Steady.js%20%E2%80%93%20A%20module%20to%20work%20on%20the%20%60onscroll%60%20without%20performance%20regressions%20in%20a%20%40media-query%20like%20style.%20http%3A%2F%2Flafikl.github.io%2Fsteady.js%2F" target="_blank">Tweet</a></li>
+        <li><a href="https://github.com/lafikl/steady.js">Source Code</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
 </html>
