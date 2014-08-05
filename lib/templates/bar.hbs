@@ -1,4 +1,13 @@
 <style>
+/* 
+to make sure perfBar doesn't overlap 
+with the content when you reach the bottom of the page
+*/
+body {
+  padding-bottom: 40px;
+}
+
+
 #perfBar, #perfBar:before, #perfBar:after, #perfBar *, #perfBar *:before, #perfBar *:after {
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
  }
@@ -30,6 +39,7 @@
   background: #ededed;
 }
 .perfBar-bar {
+  height: 40px;
   padding: 0 30px;
   margin: 0 auto;
   padding-bottom: 10px;
