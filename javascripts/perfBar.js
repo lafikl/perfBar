@@ -203,7 +203,7 @@ window.perfBar = window.perfBar || {};
   perfBar.deleteMetric = function(id) {
     if ( !id || !this.metrics[id] ) return;
 
-    document.getElementById("perfBar-metric" + id).remove()
+    (document.getElementById("perfBar-metric-loadTime")).remove()
     return delete this.metrics[id];
   }
 
