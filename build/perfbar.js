@@ -154,16 +154,15 @@ window.perfBar = window.perfBar || {};
 
     // if metric is already created with the same id, then overwrite it.
     if ( this.metrics[metric.id] ) {
-      this.metrics[metric.id].el.outerHTML = this.metricTemplate(metric)
+      document.getElementById(metric.id).outerHTML = this.metricTemplate(metric)
 
-      metric.el = document.getElementById(metric.id)
       this.metrics[metric.id] = metric
       return
     }
 
     this.metricsContainer.innerHTML += this.metricTemplate(metric)
 
-    metric.el = document.getElementById(metric.id)
+
     this.metrics[metric.id] = metric
 
 
@@ -198,14 +197,13 @@ window.perfBar = window.perfBar || {};
       }
     }
 
-    this.metrics[id].el.outerHTML = this.metricTemplate(this.metrics[id])
-    this.metrics[id].el = document.getElementById(id)
+    document.getElementById(id).outerHTML = this.metricTemplate(this.metrics[id])
   }
 
   perfBar.deleteMetric = function(id) {
     if ( !id || !this.metrics[id] ) return;
 
-    this.metrics[id].el.remove()
+    document.getElementById(id).remove()
     return delete this.metrics[id];
   }
 
