@@ -154,7 +154,7 @@ window.perfBar = window.perfBar || {};
 
     // if metric is already created with the same id, then overwrite it.
     if ( this.metrics[metric.id] ) {
-      document.getElementById(metric.id).outerHTML = this.metricTemplate(metric)
+      document.getElementById("perfBar-metric" + metric.id).outerHTML = this.metricTemplate(metric)
 
       this.metrics[metric.id] = metric
       return
@@ -197,13 +197,13 @@ window.perfBar = window.perfBar || {};
       }
     }
 
-    document.getElementById(id).outerHTML = this.metricTemplate(this.metrics[id])
+    document.getElementById("perfBar-metric" + id).outerHTML = this.metricTemplate(this.metrics[id])
   }
 
   perfBar.deleteMetric = function(id) {
     if ( !id || !this.metrics[id] ) return;
 
-    document.getElementById(id).remove()
+    document.getElementById("perfBar-metric" + id).remove()
     return delete this.metrics[id];
   }
 
@@ -598,7 +598,7 @@ function program7(depth0,data) {
   return buffer;
   }
 
-  buffer += "<li id=\"";
+  buffer += "<li id=\"perfBar-metric-";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
