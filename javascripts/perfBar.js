@@ -93,8 +93,10 @@ window.perfBar = window.perfBar || {};
     this.el = document.getElementById('perfBar')
     this.metricsContainer = this.el.querySelector('.perfBar-cf')
 
+    this.disabledMetrics = {}
+
     config = config || {}
-    this.disabledMetrics = config.disabled || {}
+    
 
     this.config = config
 
@@ -152,16 +154,16 @@ window.perfBar = window.perfBar || {};
 
     this.mergeBudget(metric)
 
-    // if metric is already created with the same id, then overwrite it.
-    if ( this.metrics[metric.id] ) {
-      document.getElementById("perfBar-metric" + metric.id).outerHTML = this.metricTemplate(metric)
+    var el = document.getElementById("perfBar-metric-" + metric.id)
 
+    // if metric is already created with the same id, then overwrite it.
+    if ( this.metrics[metric.id] && el ) {
+      el.outerHTML = this.metricTemplate(metric)
       this.metrics[metric.id] = metric
       return
     }
 
     this.metricsContainer.innerHTML += this.metricTemplate(metric)
-
 
     this.metrics[metric.id] = metric
 
@@ -197,29 +199,34 @@ window.perfBar = window.perfBar || {};
       }
     }
 
-    document.getElementById("perfBar-metric" + id).outerHTML = this.metricTemplate(this.metrics[id])
+    document.getElementById("perfBar-metric-" + id).outerHTML = this.metricTemplate(this.metrics[id])
   }
 
   perfBar.deleteMetric = function(id) {
     if ( !id || !this.metrics[id] ) return;
 
-    (document.getElementById("perfBar-metric-loadTime")).remove()
+    (document.getElementById("perfBar-metric-" + id)).remove()
     return delete this.metrics[id];
   }
 
   perfBar.enable = function(id) {
     if ( !id ) return;
-    if ( !this.disabledMetrics[id] ) return;
+    if ( !this.disabledMetrics[id] ) return true;
 
-    return delete this.disabledMetrics[id];
+    delete this.disabledMetrics[id]
+
+    if ( this.metrics[id] ) this.addMetric(this.metrics[id])
+
+    return true
   }
 
   perfBar.disable = function(id) {
     if ( !id ) return;
-    if ( this.disabledMetrics[id] ) return;
+    if ( this.disabledMetrics[id] ) return true;
 
-    this.deleteMetric(id)
-    return delete this.disabledMetrics[id];
+    this.disabledMetrics[id] = this.metrics[id]
+
+    return (document.getElementById("perfBar-metric-" + id)).remove()
   }
 
   var perfMetrics = { perf: [], others: [] }
