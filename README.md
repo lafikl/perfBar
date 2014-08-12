@@ -1,4 +1,1 @@
-perfBar
-=======
-
-WIP
+[documentation](http://lafikl.github.io/perfBar/)
