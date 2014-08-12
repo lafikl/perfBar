@@ -24,148 +24,256 @@
   <div id="st-header">
       <div class="st-container">
         <h1 class="st-header-title">PerfBar</h1>
-        <p class="st-header-body">A jank-free module to do logic on the <code>onscroll</code> event without performance regressions in @media-query like conditions.</p>
+        <p class="st-header-body">Simple way to collect and look at your website performance metrics quickly, that supports <a href="http://timkadlec.com/2013/01/setting-a-performance-budget/">budgeting</a> and adding custom metrics.</p>
 
-        <a href="#getStarted" class="st-getStarted">Get Started</a>
+        <a href="#more" class="st-getStarted">Learn More</a>
         <a href="#install" class="st-github-star">Install</a>
-        <a href="https://github.com/lafikl/Steady.js" class="st-github-star">Star on Github</a>
+        <a href="https://github.com/lafikl/perfBar" class="st-github-star">Star on Github</a>
       </div>
   </div>
 
   <div class="st-container">
-    
 
-    <div class="st-part" id="getStarted">
-        <h2 class="st-part__title">How does it work?</h2>
-        <p>Steady's main goal is to make the user scrolling <a href="http://jankfree.org">jank-free</a>. Below is an explaination on how Steady is working under the hood:</p>
-        <ol>
-          <li>First, Steady attaches a handler to the <code>onscroll</code> event, that excutes the trackers (collecting numbers only).</li>
-          <li>Then it calls another function that checks the conditions with values inside a <code>requestAnimationFrame</code> to avoid making the <code>onscroll</code> handler fat and slow, which will jank our scrolling.</li>
-          <li>After that check, the function tries to see if the conditions are met. If they're met, it calls the handler with the values and the done function, otherwise it does nothing.</li>
-          <li>When the handler is called, Steady stops collecting values until the <code>done</code> callback is called by the handler. This will help you when you do async stuff.</li>
-
-        </ol>
-    </div>
-
-    <div class="st-part">
+    <div class="st-part" id="more">
         <h2 class="st-part__title">Features</h2>
         <ul>
-          <li>Tiny <code>onscroll</code> handler that collect values only, offloading the computations to <code>requestAnimationFrame</code>.
-          </li>
-          <li>Throttling <code>onscroll</code> handler to avoid calling it more than what we need.</li>
-          <li>Simple and reusable trackers that works like <code>@media-query</code>.
-          </li>
-          <li>Built-in trackers: 
-            <ul>
-              <li><code>bottom</code>: you can use it to check did the user reach the bottom of the page/element yet? ( e.g. before reaching the end of the page by 200px start loading new content ). And it works of the scrollable elements and window!</li>
-              <li><code>top</code>: how much did he scroll the window/element down?</li>
-              <li><code>width</code>: viewport width, since your logic might change based on the viewport size</li>
-              <li><code>scrollLeft</code>: this is for scrollable elements only, that collects how much did you scroll from the left of the element.</li>
-              <li>...and you can build your own trackers very easily!</li>
-            </ul>
-          </li>
-          <li>Extendable trackers, you can simply roll your own trackers.</li>
-          <li>Stopping and resuming the onScroll handler</li>
+          <li>Simple setup. Just one script, there is no dependencies.</li>
+          <li>Dozens of built-in metrics.</li>
+          <li>You have the ability to add specific metrics for your app.</li>
+          <li>You can disable any metric.</li>
+          <li>Budgeting support for all the metrics.</li>
         </ul>
     </div>
 
-    <div class="st-part">
-        <h2 class="st-part__title">Instance methods</h2>
-        <script src="https://gist.github.com/lafikl/79f1ba78ca22cc0f081e.js"></script>
 
-        <ul>
-          <li><code>s.addCondition(condition)</code>: it gives the ability to add a condition on the fly. And <code>condition</code> is a string that works as the identifier of the condition (e.g <code>top</code> )</li>
-          <li><code>s.removeCondition(condition)</code>: same as the above but it removes the condition.</li>
-          <li><code>s.addTracker(conditionName, fn)</code>: a method to create custom trackers. look at the example <a href="#customTracker">below</a></li>
-          <li><code>s.stop</code>: it removes the onScroll listener, this method is good for Single-Page applications whin switching between routes/views.</li>
-          <li><code>s.resume</code>: reattaches the handler to the onScroll event. <a href="#stopResume">Example</a></li>
-        </ul>
 
-    </div>
-
-    <div class="st-part">
-
-        <h3>Steady (options)</h3>
-        <h4>Options:</h4>
-        <ul>
-          <li><code>conditions</code> (<b>Object</b>): this is a key/value object that defines rules for the trackers. All trackers have <code>min</code> and <code>max</code> suffix out of the box. It's like <code>@media-query</code> but for <code>onscroll</code> event</li>
-          <li><code>handler</code> (<b>Function</b>): a handler that gets called when the conditions are met, with two parameters:
-            <ol>
-              <li><code>values</code> (<b>Object</b>): contains a key/value object, where the key is the name of the tracker and the value is it's value.
-              </li>
-              <li><code>done</code> (<b>Function</b>): a function that you call when you're done processing, this way you can make sure that your handler can't be called again while you process an async thingy <i>( e.g. waiting for an AJAX request to finish )</i>.</li>
-            </ol>
-          </li>
-          <li><code>[scrollElement]</code>(<b>HTML Element</b>): it gives you the ability to run Steady on a scrollable element instead of window. This property is optional that defaults to <code>window</code>. <a href="examples/scrollable.html">Demo</a></li>
-          <li><code>[throttle]</code> (<b>Number</b>): the timeout delay in milliseconds, it's used to avoid calling the Steady onscroll handler more than we need to. This property is optional that defaults to 100 ms</li>
-        </ul>
-        
-    </div>
-
-    <div class="st-part">
+    <div class="st-part" id="basic">
         <h2 class="st-part__title">Basic usage</h2>
-        <script src="https://gist.github.com/lafikl/8dfd7b25524d5afb8f7e.js"></script>
-        
+        <script src="https://gist.github.com/lafikl/dce6bd40145efef2ac7e.js"></script>
     </div>
 
-    <div class="st-part" id="customTracker">
-        <h2 class="st-part__title">Custom trackers</h2>
-        <script src="https://gist.github.com/lafikl/470e6f24513c82b60f44.js"></script>
+    <div class="st-part" id="customMetrics">
+        <h2 class="st-part__title">Custom metrics</h2>
+        <p>Every metric must have a unique id or <code>addMetric</code> will return an error.</p>
+        <script src="https://gist.github.com/lafikl/30c9f97e98339b382cd6.js"></script>
     </div>
 
-    <div class="st-part">
-        <h2 class="st-part__title">Scrollable element</h2>
-        <script src="https://gist.github.com/lafikl/cf088bbf02798c66b0f5.js"></script>
+    <div class="st-part" id="updateMetric">
+        <h2 class="st-part__title">Update metric</h2>
+        <script src="https://gist.github.com/lafikl/79f1ba78ca22cc0f081e.js"></script>
     </div>
 
-    <div class="st-part" id="stopResume">
-        <h2 class="st-part__title">Stop/Resume</h2>
+    <div class="st-part" id="disable">
+        <h2 class="st-part__title">Disable metric</h2>
+        <script src="https://gist.github.com/lafikl/79f1ba78ca22cc0f081e.js"></script>
+    </div>
+
+    <div class="st-part" id="lazy">
+        <h2 class="st-part__title">Lazy Loading</h2>
         <script src="https://gist.github.com/lafikl/79f1ba78ca22cc0f081e.js"></script>
     </div>
 
 
+    <div class="st-part" id="list">
+        <h2 class="st-part__title">Full list of the built-in metrics</h2>
+        <br>
+        <h3 id="metric-loadTime">Load Time</h3>
+        <p>Page Load time. It's calculated by subtracting <code>loadEventStart</code> and <code>navigationStart</code>. The Default max is <i>5000</i> ms</p>
+        <p>Id: <b>loadTime</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Budget – Max:<b> 5000</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
     <div class="st-part">
+        <h3 id="metric-latency">Latency</h3>
+        <p>The time it takes to recieve the first byte from server.</p>
+        <p>Id: <b>latency</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Budget – Max:<b> 50</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-frontEnd">Front End</h3>
+        <p>The time the page takes to do the front end work, this start after <code>responseEnd</code> event and it ends when the <code>onload</code> event fires.</p>
+        <p>Id: <b>frontEnd</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Budget – Max:<b> 80% of the total page load time, following Steve's <a href="http://www.stevesouders.com/blog/2012/02/10/the-performance-golden-rule/">Golden rule</a></b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-backEnd">Back End</h3>
+        <p>The time it takes to get the full response from the server, this start at <code>navigationStart</code> event and it ends at <code>responseEnd</code> event.</p>
+        <p>Id: <b>backEnd</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Budget – Max:<b> 20% of the total page load time, following Steve's <a href="http://www.stevesouders.com/blog/2012/02/10/the-performance-golden-rule/">Golden rule</a></b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-responseDuration">Response Duration</h3>
+        <p>The time it takes the browser to recieve the full response, this start at <code>responseStart</code> event and it ends at <code>responseEnd</code> event.</p>
+        <p>Id: <b>respnseDuration</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-requestDuration">Request Duration</h3>
+        <p>The time it takes server to respond after sending a request to it, this start at <code>requestStart</code> event and it ends at <code>responseStart</code> event.</p>
+        <p>Id: <b>requestDuration</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-redirectCount">Redirects count</h3>
+        <p>How many redirects it took you to get to this page?</p>
+        <p>Id: <b>redirectCount</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-loadEventTime">Load Event duration</h3>
+        <p>The amout of time it took the load event to finish.</p>
+        <p>Id: <b>loadEventTime</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-domContentLoaded">DOM Content loaded</h3>
+        <p>Time for the DOM content to be loaded.</p>
+        <p>Id: <b>domContentLoaded</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-processing">Processing Duration</h3>
+        <p>The amount of time that takes the browser to process the whole page.</p>
+        <p>Id: <b>processing</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Source:<b> Navigation Timing API</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-numOfEl">DOM elements</h3>
+        <p>The total number of DOM elements.</p>
+        <p>Id: <b>numOfEl</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-cssCount">CSS</h3>
+        <p>The total number of the CSS files in the page.</p>
+        <p>Id: <b>cssCount</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-jsCount">JavaScript</h3>
+        <p>The total number of the JavaScript scripts in the page.</p>
+        <p>Id: <b>jsCount</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-imgCount">Images</h3>
+        <p>The total number of images in the page.</p>
+        <p>Id: <b>imgCount</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-dataURIImagesCount">Data URI images</h3>
+        <p>The total number of the data URI images in the page.</p>
+        <p>Id: <b>dataURIImagesCount</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-inlineCSSCount">Inline CSS</h3>
+        <p>The total number of the inlined CSS in the page.</p>
+        <p>Id: <b>inlineCSSCount</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-inlineJSCount">Inline JavaScript</h3>
+        <p>The total number of the inlined JavaScript in the page.</p>
+        <p>Id: <b>inlineJSCount</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-thirdCSS">3rd Party CSS</h3>
+        <p>The total number of the CSS files loaded from a 3rd party host.</p>
+        <p>Id: <b>thirdCSS</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-thirdJS">3rd Party JavaScript</h3>
+        <p>The total number of the JavaScript files loaded from a 3rd party host.</p>
+        <p>Id: <b>thirdJS</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+    <div class="st-part">
+        <h3 id="metric-globalJS">JavaScript Globals</h3>
+        <p>The Number of the user-defined variables in the global scope in JS. For example <code>$</code></p>
+        <p>Id: <b>globalJS</b></p>
+        <p>Source:<b> DOM</b></p>
+    </div>
+
+
+    <div class="st-part" id="demo">
       <h2 class="st-part__title">Demo</h2>
-      <ul>
-        <li><a href="examples/infinite.html">Infinite scroll</a></li>
-        <li><a href="examples/scrollable.html">Scrollable element</a></li>
-        <li>Be creative!</li>
-      </ul>
+      <p>The current page has PerfBar in it.<p>
     </div>
 
     <div class="st-part" id="install">
       <h2 class="st-part__title">Install</h2>
       <h4>NPM</h4>
-      <code class="st-bash"><b>$</b> npm install steady</code>
+      <code class="st-bash"><b>$</b> npm install perfbar</code>
 
       <h4>Bower</h4>
-      <code class="st-bash"><b>$</b> bower install Steady.js</code>
+      <code class="st-bash"><b>$</b> bower install perfbar</code>
 
       <h4>Download</h4>
-      <p>You can download the latest release from <a href="https://github.com/lafikl/steady.js/releases/latest">the github repo</a></p>
+      <p>You can download the latest release from <a href="https://github.com/lafikl/perfBar/releases/latest">the github repo</a></p>
     </div>
 
-    <div class="st-part" id="install">
-      <h2 class="st-part__title">Changelog</h2>
-      <h4>1.0.0</h4>
-      <ul>
-        <li>Deprecating <code>scrollY</code>, <code>scrollX</code>, and <code>scrollTop</code></li>
-        <li>New tracker <code>top</code></li>
-      </ul>
-    </div>
 
     <div class="st-part">
       <small>By Khalid Lafi / <a href="#">@LafiKL</a></small>
       <ul class="st-footer-stuff">
-        <li class="st-tweet"><a href="https://twitter.com/intent/tweet?text=Steady.js%20%E2%80%93%20A%20module%20to%20work%20on%20the%20%60onscroll%60%20without%20performance%20regressions%20in%20a%20%40media-query%20like%20style.%20http%3A%2F%2Flafikl.github.io%2Fsteady.js%2F" target="_blank">Tweet</a></li>
-        <li><a href="https://github.com/lafikl/steady.js">Source Code</a></li>
+        <li class="st-tweet"><a href="https://twitter.com/intent/tweet?text=" target="_blank">Tweet</a></li>
+        <li><a href="https://github.com/lafikl/perfBar">Source Code</a></li>
       </ul>
     </div>
   </div>
 
   <script type="text/javascript" src="javascripts/perfBar.js"></script>
   <script type="text/javascript">
-    perfBar.init()
+  perfBar.init({
+    budget: {
+    }
+  });
+  var err = perfBar.addMetric({
+    id: 'Test',
+    label: 'Test new metric', // human readable name
+    value: 18,
+    budget: {
+      max: 20,
+      min: 1
+    }
+  });
+
+  if ( !err ) console.log('Woho all is ok!');
   </script>
 </body>
 </html>

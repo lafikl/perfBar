@@ -432,7 +432,7 @@ body {
   background: #fff;
   font-family: helvetica neue;
   -webkit-font-smoothing: antialiased;
-  font-weight: 200;
+  font-weight: 400;
   color: #555;
   
 }
@@ -467,6 +467,11 @@ a {
   font-weight: 300;
   line-height: 1.6em;
 }
+.st-header-body a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.4);
+}
 .st-container {
   max-width: 680px;
   margin: 0 auto;
@@ -476,6 +481,8 @@ a {
 .st-part {
   border-top: 1px dotted #ededed;
   margin-top: 45px;
+  
+  padding: 15px;
   padding-top: 45px;
 }
 
@@ -485,10 +492,9 @@ a {
 
 .st-part__title {
   margin-top: 0;
-  font-weight: 200;
+  font-weight: 600;
 }
 .st-part > ul {
-  list-style: square;
   padding-left: 15px;
 }
 .st-part li ul {
@@ -546,6 +552,7 @@ a {
   margin-right: 15px;
   padding: 10px 20px;
   display: inline-block;
+  min-width: 150px;
 
   text-decoration: none;
 }
@@ -575,4 +582,18 @@ a {
   background-image: -o-linear-gradient(45deg, #2095D1, #8AFFE4);
   background: linear-gradient(45deg, #2095D1, #8AFFE4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+code {
+  background: #f1f1f1;
+  padding: 2px;
+  line-height: 1.8em;
+}
+
+
+@media screen and (min-width: 800px) {
+  .st-part {
+    padding: 0;
+    padding-top: 45px;
+  }
 }
