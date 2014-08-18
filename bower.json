@@ -1,0 +1,17 @@
+{
+  "name": "perfbar",
+  "version": "0.0.1",
+  "main": "build/perfbar.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "*.md",
+    "lib",
+    "examples",
+    "package.json"
+  ],
+  "keywords": [
+    "metrics",
+    "performance"
+  ]
+}
