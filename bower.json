@@ -1,0 +1,23 @@
+{
+  "name": "perfbar",
+  "version": "0.0.1",
+  "homepage": "http://lafikl.github.io/perfBar",
+  "authors": [
+    "Khalid Lafi"
+  ],
+  "description": "Tracking performance metrics never been easier",
+  "main": "build/perfbar.js",
+  "keywords": [
+    "frontend",
+    "performance"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "examples"
+  ]
+}
