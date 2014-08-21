@@ -5,22 +5,8 @@
   <meta charset='utf-8'>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
-  <script type="text/javascript">
-  (function(d) {
-    var config = {
-      kitId: 'jqw5txk',
-      scriptTimeout: 3000
-    },
-    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='//use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-  })(document);
-</script>
 </head>
 <body>
-<!--   <div class="perfBudget">
-    <div class="st-container">
-      PerfBudget
-    </div>
-  </div> -->
   <div id="st-header">
       <div class="st-container">
         <h1 class="st-header-title">PerfBar</h1>
@@ -240,8 +226,11 @@
 
     <div class="st-part" id="install">
       <h2 class="st-part__title">Install</h2>
-      <h4>NPM</h4>
+      <h4 id="install-npm">NPM</h4>
       <code class="st-bash"><b>$</b> npm install perfbar</code>
+
+      <h4 id="install-bower">Bower</h4>
+      <code class="st-bash"><b>$</b> bower install perfbar</code>
 
       <h4>Download</h4>
       <p>You can download the latest release from <a href="https://github.com/lafikl/perfBar/releases/latest">the github repo</a></p>
