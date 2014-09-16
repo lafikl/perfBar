@@ -538,6 +538,16 @@ a {
   background: #f5f5f5;
   color: #444;
 
+  width: 100%;
+  max-height: 70px;
+  overflow: auto;
+}
+.fastly-attr {
+  color: #666;
+}
+.fastly-logo {
+  vertical-align: middle;
+  margin-left: 10px;
 }
 .st-github-star {
   background: transparent;
