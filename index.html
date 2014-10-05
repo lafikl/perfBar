@@ -88,6 +88,17 @@
     </div>
 
     <div class="st-part">
+        <h3 id="metric-firstPaint">First Paint</h3>
+        <p>The time it takes the browser to paint the first frame.</p>
+        <p>Id: <b>FirstPaint</b></p>
+        <p>Unit: <b>ms</b></p>
+        <p>Budget – Max:<b> 100</b></p>
+        <p>Source:<b> Chrome.loadTimes and IE timing</b></p>
+        <p><small><b>NOTE: This metric does not work on Firefox, unfortunately :(</small></b></p>
+        <p><small>The implementation of this metric is taken from <a href="https://github.com/addyosmani/timing.js">timing.js</a>, thanks <a href="https://github.com/addyosmani">Addy</a>!</small></p>
+    </div>
+
+    <div class="st-part">
         <h3 id="metric-frontEnd">Front End</h3>
         <p>The time the page takes to do the front end work, this start after <code>responseEnd</code> event and it ends when the <code>onload</code> event fires.</p>
         <p>Id: <b>frontEnd</b></p>
@@ -231,7 +242,7 @@
     <div class="st-part" id="install">
       <h2 class="st-part__title">Install</h2>
       <h4 id="install-fastly">CDN</h4>
-      <pre class="st-bash">&lt;script src=&quot;http://perfbar.khalidlafi.com.global.prod.fastly.net/perfbar-0.0.2.min.js&quot;&gt;&lt;/script&gt;</pre>
+      <pre class="st-bash">&lt;script src=&quot;http://perfbar.khalidlafi.com.global.prod.fastly.net/perfbar-0.1.0.min.js&quot;&gt;&lt;/script&gt;</pre>
       <h5>NOTE: all the above examples are working examples, just copy & paste what you want and try it yourself!</h5>
 
       <h6 class="fastly-attr">CDN is Powered by <a href="http://www.fastly.com/"><img class="fastly-logo" src="images/fastly-s.png"></a></h6>
@@ -255,7 +266,7 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="http://perfbar.khalidlafi.com.global.prod.fastly.net/perfbar-0.0.2.min.js"></script>
+  <script type="text/javascript" src="http://perfbar.khalidlafi.com.global.prod.fastly.net/perfbar-0.1.0.min.js"></script>
   <script type="text/javascript">
   perfBar.init({
     budget: {
