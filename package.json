@@ -9,6 +9,7 @@
   "author": "Khalid Lafi",
   "license": "MIT",
   "dependencies": {
-    "hbsfy": "^2.0.0"
+    "hbsfy": "^2.0.0",
+    "handlebars": "^2.0.0"
   }
 }
