@@ -1,6 +1,6 @@
 {
   "name": "perfbar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://lafikl.github.io/perfBar",
   "description": "Tracking performance metrics never been easier",
   "scripts": {
