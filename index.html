@@ -99,6 +99,13 @@
     </div>
 
     <div class="st-part">
+        <h3 id="metric-numReqs">Number of requests</h3>
+        <p>It's the total number of HTTP/HTTPS requests made by the page.</p>
+        <p>Id: <b>numReqs</b></p>
+        <p>Source:<b> Resource timing API</b></p>
+    </div>
+
+    <div class="st-part">
         <h3 id="metric-frontEnd">Front End</h3>
         <p>The time the page takes to do the front end work, this start after <code>responseEnd</code> event and it ends when the <code>onload</code> event fires.</p>
         <p>Id: <b>frontEnd</b></p>
@@ -226,14 +233,6 @@
         <p>Source:<b> DOM</b></p>
     </div>
 
-    <div class="st-part">
-        <h3 id="metric-globalJS">JavaScript Globals</h3>
-        <p>The Number of the user-defined variables in the global scope in JS. For example <code>$</code></p>
-        <p>Id: <b>globalJS</b></p>
-        <p>Source:<b> DOM</b></p>
-    </div>
-
-
     <div class="st-part" id="demo">
       <h2 class="st-part__title">Demo</h2>
       <p>The current page has PerfBar in it.<p>
@@ -266,7 +265,7 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="http://perfbar.khalidlafi.com.global.prod.fastly.net/perfbar-0.1.0.min.js"></script>
+  <script type="text/javascript" src="http://perfbar.khalidlafi.com.global.prod.fastly.net/perfbar-0.2.0.min.js"></script>
   <script type="text/javascript">
   perfBar.init({
     budget: {
