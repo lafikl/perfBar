@@ -1,6 +1,6 @@
 {
   "name": "perfbar",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "http://lafikl.github.io/perfBar",
   "description": "Tracking performance metrics never been easier",
   "scripts": {
@@ -8,8 +8,12 @@
   },
   "author": "Khalid Lafi",
   "license": "MIT",
+  "scripts": {
+    "build": "browserify ./lib/perfbar.js -o ./build/perfbar.js -t hbsfy"
+  },
   "dependencies": {
     "hbsfy": "^2.0.0",
-    "handlebars": "^2.0.0"
+    "handlebars": "^2.0.0",
+    "browserify": "^7.0.2"
   }
 }
