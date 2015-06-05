@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.perfBar=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 module.exports = function () {
 
   if (typeof window.Element === "undefined" || "classList" in document.documentElement) return;
@@ -72,7 +72,7 @@ module.exports = function () {
 
 
 
-},{}],2:[function(require,module,exports){
+},{}],2:[function(_dereq_,module,exports){
 window.perfBar = window.perfBar || {};
 
 
@@ -80,8 +80,8 @@ window.perfBar = window.perfBar || {};
 
 
   perfBar.init = function(config) {
-    var classList = require('./classList.js')
-    var barTemplate = require('./templates/bar.hbs')
+    var classList = _dereq_('./classList.js')
+    var barTemplate = _dereq_('./templates/bar.hbs')
 
     this.el = document.createElement('div');
     this.el.innerHTML = barTemplate();
@@ -125,7 +125,7 @@ window.perfBar = window.perfBar || {};
 
 
   perfBar.metricTemplate = function(metric) {
-    var template = require('./templates/stat.hbs')
+    var template = _dereq_('./templates/stat.hbs')
 
     var budget = metric.budget
 
@@ -543,16 +543,16 @@ window.perfBar = window.perfBar || {};
   }
 
 })()
-},{"./classList.js":1,"./templates/bar.hbs":3,"./templates/stat.hbs":4}],3:[function(require,module,exports){
+},{"./classList.js":1,"./templates/bar.hbs":3,"./templates/stat.hbs":4}],3:[function(_dereq_,module,exports){
 // hbsfy compiled Handlebars template
-var HandlebarsCompiler = require('hbsfy/runtime');
+var HandlebarsCompiler = _dereq_('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   return "<style>\n/* \nto make sure perfBar doesn't overlap \nwith the content when you reach the bottom of the page\n*/\nbody {\n  padding-bottom: 40px;\n}\n\n\n#perfBar, #perfBar:before, #perfBar:after, #perfBar *, #perfBar *:before, #perfBar *:after {\n  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;\n }\n\n#perfBar {\n  position: fixed;\n  width: 100%;\n  bottom: 0;\n  left: 0;\n  padding: 0;\n  z-index: 999;\n  \n\n  color: #333;\n  font-weight: 200;\n  font-size: 16px;\n  background: #EFEFEF;\n  border-top: 1px solid #dedede;\n  font-family: \"helvetica\", arial;\n}\n#perfBar:hover {\n  background: #EFEFEF;\n}\n#perfBar.perfBar-is-active {\n  background: #EFEFEF;\n  height: 250px;\n}\n#perfBar.perfBar-is-active .perfBar-bar:hover {\n  background: #ededed;\n}\n.perfBar-bar {\n  height: 40px;\n  padding: 0 30px;\n  margin: 0 auto;\n  padding-bottom: 10px;\n  padding-top: 10px;\n\n  line-height: 20px;\n  text-align: center;\n  color: #fff;\n  cursor: pointer;\n}\n\n.perfBar-is-active .perfBar-bar {\n  border-bottom: 1px solid #ededed;\n  box-shadow: 0 1px 0 #dedede;\n}\n\n.perfBar-bar-circle {\n  display: inline-block;\n  height: 5px;\n  width: 5px;\n\n  background: #999;\n  border-radius: 50%;\n}\n\n.perfBar-stats {\n  display: none;\n}\n\n\n.perfBar-is-active .perfBar-stats {\n  display: block;\n  overflow: auto;\n  max-height: 200px;\n}\n\n.perfBar-stats ul {\n  list-style: none;\n  padding: 0;\n  margin: 20px auto 0;\n  display: block;\n  width: 90%;\n}\n.perfBar-stats li {\n  padding: 15px;\n  width: 50%;\n  height: 100px;\n  float: left;\n}\n\n.perfBar-stat {\n  text-align: center;  \n}\n.perfBar-valueUnit {\n  -webkit-font-smoothing: antialiased;\n}\n.perfBar-valueUnit.is-good {\n  color: #00AD61;\n}\n.perfBar-valueUnit.is-bad {\n  color: #FF3535;\n}\n.perfBar-value {\n  font-size: 2em;\n  font-weight: 600;\n}\n.perfBar-unit {\n  font-size: 1.2em;\n  font-weight: 500;\n}\n.perfBar-label {\n  margin-top: 5px;\n\n  color: #999;\n  font-weight: 200;\n  font-size: .8em;\n}\n\n.perfBar-cf:before,\n.perfBar-cf:after {\n    content: \" \"; /* 1 */\n    display: table; /* 2 */\n}\n\n.perfBar-cf:after {\n    clear: both;\n}\n\n/**\n * For IE 6/7 only\n * Include this rule to trigger hasLayout and contain floats.\n */\n.perfBar-cf {\n    *zoom: 1;\n}\n\n\n@media screen and (min-width: 700px) {\n  .perfBar-stats li {\n    width: 20%;\n  }\n}\n</style>\n<div id=\"perfBar\">\n  <div class=\"perfBar-bar\">\n    <span class=\"perfBar-bar-circle\"></span>\n    <span class=\"perfBar-bar-circle\"></span>\n    <span class=\"perfBar-bar-circle\"></span>\n  </div>\n  <div class=\"perfBar-stats\">\n    <ul class=\"perfBar-cf\">\n    </ul>\n  </div>\n</div>";
   },"useData":true});
 
-},{"hbsfy/runtime":12}],4:[function(require,module,exports){
+},{"hbsfy/runtime":12}],4:[function(_dereq_,module,exports){
 // hbsfy compiled Handlebars template
-var HandlebarsCompiler = require('hbsfy/runtime');
+var HandlebarsCompiler = _dereq_('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
   return " is-good ";
   },"3":function(depth0,helpers,partials,data) {
@@ -590,17 +590,17 @@ module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partia
     + "</h3>\n  </div>\n</li>";
 },"useData":true});
 
-},{"hbsfy/runtime":12}],5:[function(require,module,exports){
+},{"hbsfy/runtime":12}],5:[function(_dereq_,module,exports){
 "use strict";
 /*globals Handlebars: true */
-var base = require("./handlebars/base");
+var base = _dereq_("./handlebars/base");
 
 // Each of these augment the Handlebars object. No need to setup here.
 // (This is done to easily share code between commonjs and browse envs)
-var SafeString = require("./handlebars/safe-string")["default"];
-var Exception = require("./handlebars/exception")["default"];
-var Utils = require("./handlebars/utils");
-var runtime = require("./handlebars/runtime");
+var SafeString = _dereq_("./handlebars/safe-string")["default"];
+var Exception = _dereq_("./handlebars/exception")["default"];
+var Utils = _dereq_("./handlebars/utils");
+var runtime = _dereq_("./handlebars/runtime");
 
 // For compatibility and usage outside of module systems, make the Handlebars object a namespace
 var create = function() {
@@ -626,10 +626,10 @@ Handlebars.create = create;
 Handlebars['default'] = Handlebars;
 
 exports["default"] = Handlebars;
-},{"./handlebars/base":6,"./handlebars/exception":7,"./handlebars/runtime":8,"./handlebars/safe-string":9,"./handlebars/utils":10}],6:[function(require,module,exports){
+},{"./handlebars/base":6,"./handlebars/exception":7,"./handlebars/runtime":8,"./handlebars/safe-string":9,"./handlebars/utils":10}],6:[function(_dereq_,module,exports){
 "use strict";
-var Utils = require("./utils");
-var Exception = require("./exception")["default"];
+var Utils = _dereq_("./utils");
+var Exception = _dereq_("./exception")["default"];
 
 var VERSION = "2.0.0";
 exports.VERSION = VERSION;var COMPILER_REVISION = 6;
@@ -858,7 +858,7 @@ var createFrame = function(object) {
   return frame;
 };
 exports.createFrame = createFrame;
-},{"./exception":7,"./utils":10}],7:[function(require,module,exports){
+},{"./exception":7,"./utils":10}],7:[function(_dereq_,module,exports){
 "use strict";
 
 var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
@@ -887,13 +887,13 @@ function Exception(message, node) {
 Exception.prototype = new Error();
 
 exports["default"] = Exception;
-},{}],8:[function(require,module,exports){
+},{}],8:[function(_dereq_,module,exports){
 "use strict";
-var Utils = require("./utils");
-var Exception = require("./exception")["default"];
-var COMPILER_REVISION = require("./base").COMPILER_REVISION;
-var REVISION_CHANGES = require("./base").REVISION_CHANGES;
-var createFrame = require("./base").createFrame;
+var Utils = _dereq_("./utils");
+var Exception = _dereq_("./exception")["default"];
+var COMPILER_REVISION = _dereq_("./base").COMPILER_REVISION;
+var REVISION_CHANGES = _dereq_("./base").REVISION_CHANGES;
+var createFrame = _dereq_("./base").createFrame;
 
 function checkRevision(compilerInfo) {
   var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -1081,7 +1081,7 @@ exports.noop = noop;function initData(context, data) {
   }
   return data;
 }
-},{"./base":6,"./exception":7,"./utils":10}],9:[function(require,module,exports){
+},{"./base":6,"./exception":7,"./utils":10}],9:[function(_dereq_,module,exports){
 "use strict";
 // Build out our basic SafeString type
 function SafeString(string) {
@@ -1093,10 +1093,10 @@ SafeString.prototype.toString = function() {
 };
 
 exports["default"] = SafeString;
-},{}],10:[function(require,module,exports){
+},{}],10:[function(_dereq_,module,exports){
 "use strict";
 /*jshint -W004 */
-var SafeString = require("./safe-string")["default"];
+var SafeString = _dereq_("./safe-string")["default"];
 
 var escape = {
   "&": "&amp;",
@@ -1182,12 +1182,13 @@ exports.isEmpty = isEmpty;function appendContextPath(contextPath, id) {
 }
 
 exports.appendContextPath = appendContextPath;
-},{"./safe-string":9}],11:[function(require,module,exports){
+},{"./safe-string":9}],11:[function(_dereq_,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
-module.exports = require('./dist/cjs/handlebars.runtime');
+module.exports = _dereq_('./dist/cjs/handlebars.runtime');
 
-},{"./dist/cjs/handlebars.runtime":5}],12:[function(require,module,exports){
-module.exports = require("handlebars/runtime")["default"];
+},{"./dist/cjs/handlebars.runtime":5}],12:[function(_dereq_,module,exports){
+module.exports = _dereq_("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":11}]},{},[2]);
+},{"handlebars/runtime":11}]},{},[2])(2)
+});
